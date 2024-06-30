@@ -23,6 +23,9 @@
   font-family: "Montserrat", sans-serif;
 
 }
+.error-message-box{
+	box-shadow: #e63737 0px 3px 8px;
+}
 .roboto-condensed-font{
   font-family: 'Roboto Condensed', sans-serif;
 }

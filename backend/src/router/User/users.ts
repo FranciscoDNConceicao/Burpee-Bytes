@@ -4,7 +4,7 @@ const router = Router();
 
 
 router.post('/register', (req: Request, res: Response) => {
-    console.log(req)
+    
 });
 
 
