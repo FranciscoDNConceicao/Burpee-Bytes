@@ -38,6 +38,23 @@ export function VerifyRegisterCredentials(formRegister: FormRegister): ErrorMess
         message_required.message += 'Username'
         message_required.message_type?.push('username')
     }
+    if(!formRegister.first_name && formRegister.first_name === ''){
+        if(message_required.message != ''){
+            message_required.message += ', first name'
+            
+        }else{
+            message_required.message += 'First Name'
+        }
+        message_required.message_type?.push('first_name')
+    }
+    if(!formRegister.last_name && formRegister.last_name === ''){
+        if(message_required.message != ''){
+            message_required.message += ', last name'
+        }else{
+            message_required.message += 'Last name'
+        }
+        message_required.message_type?.push('last_name')
+    }
     if(!formRegister.email && formRegister.email === ''){
         if(message_required.message != ''){
             message_required.message += ', email'

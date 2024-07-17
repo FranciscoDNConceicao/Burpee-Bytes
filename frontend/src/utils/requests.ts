@@ -1,15 +1,14 @@
 import axios, { AxiosResponse } from "axios";
 export const POST = async (url:string, data:any) : Promise<any> => {
-    var base_url = "http://localhost:3000"
+    var base_url = "http://127.0.0.1:8000"
+    console.log(base_url + url)
     try {
         if(url){
-            console.log(data)
             const response: AxiosResponse = await axios.post(base_url + url, JSON.stringify(data), {
                 headers: {
                   'Content-Type': 'application/json'
                 }
               });
-
             return response?.data;
         }else{
             console.log('Invalid parameter')

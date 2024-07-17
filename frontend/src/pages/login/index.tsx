@@ -27,6 +27,8 @@ export default function Login() {
         'email': '',
         'password': '',
         'confirm_password': '',
+        'first_name': '',
+        'last_name': ''
     });
     const [formErrorsLogin, setFromErrorsLogin] = useState<ErrorMessageLogin[]>([]);
     const [formErrorsRegister, setFromErrorsRegister] = useState<ErrorMessageRegister[]>([]);
@@ -68,9 +70,16 @@ export default function Login() {
         setErrorType(type_array);
 
         if(type_array.length == 0 && messages_array.length == 0 ){
-            const res = await POST("/users/register", formLogin)
+            const res = await POST("", formLogin)
+            console.log(res)
         }
     };
+
+    async function Register (register:FormRegister) {
+        const res = await POST("/web/register", formRegister)
+        console.log(res)
+        return res
+    }
 
     function handleSubmitRegister(e: FormEvent) {
 
@@ -84,7 +93,13 @@ export default function Login() {
                 });
             }
         });
-        setErrorTypeRegister(type_array)
+        setErrorTypeRegister(type_array);
+
+        if(type_array.length === 0 && messages_array.length === 0){
+            const ress = Register(formRegister)
+        }
+
+
         e.preventDefault();
     }
 
@@ -147,6 +162,21 @@ export default function Login() {
                                     </div>
                                     <input name="username" value={formRegister.username} onChange={handleChangeRegister} type="text" placeholder="Username" className={`text-[18px] w-[90%] pl-[20px] border-[3px] ${errorTypeRegister.includes('username') ? 'border-[#e63737] error-message-box' : 'border-bb-orange'} rounded-r-xl roboto-condensed-font text-bb-grey placeholder:text-bb-grey placeholder:text-[18px] focus:outline-none`}  />
                                 </div>
+                                <div className="flex flex-row my-[10px]">
+                                    <div className=" flex flex-row h-[40px] w-[50%] mr-[5px]">
+                                        <div className={`h-full w-[20%] rounded-s-xl flex justify-center align-middle items-center ${errorTypeRegister.includes('first_name') ? 'bg-[#e63737] error-message-box' : 'bg-bb-orange'} `}>
+                                            <img src={usernameIcon} className="w-[30px] h-[30px]" />
+                                        </div>
+                                        <input name="first_name" value={formRegister.first_name} onChange={handleChangeRegister} type="text" placeholder="First Name" className={`text-[18px] w-[90%] pl-[20px] border-[3px] ${errorTypeRegister.includes('first_name') ? 'border-[#e63737] error-message-box' : 'border-bb-orange'} rounded-r-xl roboto-condensed-font text-bb-grey placeholder:text-bb-grey placeholder:text-[18px] focus:outline-none`}   />
+                                    </div>
+                                    <div className=" flex flex-row h-[40px] w-[50%] ml-[5px]">
+                                        <div className={`h-full w-[20%] rounded-s-xl flex justify-center align-middle items-center ${errorTypeRegister.includes('last_name') ? 'bg-[#e63737] error-message-box' : 'bg-bb-orange'} `}>
+                                            <img src={usernameIcon} className="w-[30px] h-[30px]" />
+                                        </div>
+                                        <input name="last_name" value={formRegister.last_name} onChange={handleChangeRegister} type="text" placeholder="Last Name" className={`text-[18px] w-[90%] pl-[20px] border-[3px] ${errorTypeRegister.includes('last_name') ? 'border-[#e63737] error-message-box' : 'border-bb-orange'} rounded-r-xl roboto-condensed-font text-bb-grey placeholder:text-bb-grey placeholder:text-[18px] focus:outline-none`}   />
+                                    </div>
+                                </div>
+                                
                                 <div className="my-[10px] flex flex-row h-[40px]">
                                     <div className={`h-full w-[10%] rounded-s-xl flex justify-center align-middle items-center ${errorTypeRegister.includes('email') ? 'bg-[#e63737] error-message-box' : 'bg-bb-orange'} `}>
                                         <img src={emailIcon} className="w-[30px] h-[30px]" />
