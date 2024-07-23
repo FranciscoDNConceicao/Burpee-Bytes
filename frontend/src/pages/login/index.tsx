@@ -6,11 +6,15 @@ import emailIcon from "../../assets/icons/email.png";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { VerifyLoginCredentials, VerifyRegisterCredentials } from "../../utils/Login/VerifyLoginRegister";
 import { FormLogin, FormRegister, ErrorMessageLogin, ErrorMessageRegister } from "./interface";
-import axios from "axios";
 import { POST } from "../../utils/requests";
+import { useNavigate } from "../../router";
+import Loading from "../../components/Loading";
 
 
 export default function Login() {
+    const navigate = useNavigate()
+
+    const [isLoading, setIsLoading] = useState<Boolean>(false);
 
     const [isLogin, setIsLogin] = useState<Boolean>(true);
 
@@ -53,7 +57,10 @@ export default function Login() {
     const changeLoginRegister = () => {
         setIsLogin(!isLogin);
     };
-
+    async function Login (login:FormLogin) {
+        const res = await POST("/web/login/", login)
+        return res
+    }
 
     const handleSubmitLogin = async (e: FormEvent) => {
         e.preventDefault();
@@ -69,14 +76,19 @@ export default function Login() {
         });
         setErrorType(type_array);
 
-        if(type_array.length == 0 && messages_array.length == 0 ){
-            const res = await POST("", formLogin)
-            console.log(res)
+        if(type_array.length === 0 && messages_array.length === 0 ){
+            setIsLoading(true)
+            const res = await Login(formLogin)
+            setIsLoading(false)
+            if(res.status === 200 && res.data.token){
+                localStorage.setItem('authToken', res.data.token);
+                navigate('/')
+            }
         }
     };
 
     async function Register (register:FormRegister) {
-        const res = await POST("/web/register", formRegister)
+        const res = await POST("/web/register/", register)
         console.log(res)
         return res
     }
@@ -97,6 +109,7 @@ export default function Login() {
 
         if(type_array.length === 0 && messages_array.length === 0){
             const ress = Register(formRegister)
+            console.log(ress)
         }
 
 
@@ -105,6 +118,8 @@ export default function Login() {
 
     return (
         <div className="h-full gradient-background flex justify-center items-center">
+
+            {isLoading ? <Loading /> : <div></div>}
             <div className="w-[33%] bg-bb-white h-[90%] border-[7px] border-bb-orange flex flex-col p-[50px] max-[1300px]:w-[50%] max-[700px]:w-[70%]">
                 <div className="flex flex-col items-center justify-center border-[5px] border-bb-orange rounded-[40px] mx-[100px] py-[20px]">
                     <img src={byteBurpeeLogo} className="w-[200px]" />

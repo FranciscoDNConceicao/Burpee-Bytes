@@ -8,6 +8,7 @@
 #root, body, html{
   margin: 0;
   height: 100%;
+  background-color: #1E1E1E;
 }
 
 .roboto {
@@ -78,4 +79,62 @@
 }
 .fade-out-right {
   animation: fade-out-right 2s ease 0s 1 normal forwards;
+}
+
+/* SPINNER */
+.loader {
+	width: 50px;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	border: 8px solid #F6F6F6;
+	animation:
+	  l20-1 0.8s infinite linear alternate,
+	  l20-2 1.6s infinite linear;
+  }
+  @keyframes l20-1{
+	 0%    {clip-path: polygon(50% 50%,0       0,  50%   0%,  50%    0%, 50%    0%, 50%    0%, 50%    0% )}
+	 12.5% {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100%   0%, 100%   0%, 100%   0% )}
+	 25%   {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100% 100%, 100% 100%, 100% 100% )}
+	 50%   {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100% 100%, 50%  100%, 0%   100% )}
+	 62.5% {clip-path: polygon(50% 50%,100%    0, 100%   0%,  100%   0%, 100% 100%, 50%  100%, 0%   100% )}
+	 75%   {clip-path: polygon(50% 50%,100% 100%, 100% 100%,  100% 100%, 100% 100%, 50%  100%, 0%   100% )}
+	 100%  {clip-path: polygon(50% 50%,50%  100%,  50% 100%,   50% 100%,  50% 100%, 50%  100%, 0%   100% )}
+  }
+  @keyframes l20-2{ 
+	0%    {transform:scaleY(1)  rotate(0deg)}
+	49.99%{transform:scaleY(1)  rotate(135deg)}
+	50%   {transform:scaleY(-1) rotate(0deg)}
+	100%  {transform:scaleY(-1) rotate(-135deg)}
+  }
+
+/* ----------------------------------------------
+  ANIMATION
+ */
+ @-webkit-keyframes scale-in-ver-center {
+	0% {
+		-webkit-transform: scaleY(0);
+				transform: scaleY(0);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: scaleY(1);
+				transform: scaleY(1);
+		opacity: 1;
+	}
+}
+@keyframes scale-in-ver-center {
+	0% {
+		-webkit-transform: scaleY(0);
+				transform: scaleY(0);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: scaleY(1);
+				transform: scaleY(1);
+		opacity: 1;
+	}
+}
+  .scale-in-ver-center {
+	-webkit-animation: scale-in-ver-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: scale-in-ver-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }

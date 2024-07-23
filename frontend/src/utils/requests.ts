@@ -9,7 +9,7 @@ export const POST = async (url:string, data:any) : Promise<any> => {
                   'Content-Type': 'application/json'
                 }
               });
-            return response?.data;
+            return response;
         }else{
             console.log('Invalid parameter')
             return Promise.reject('Invalid parameter');
@@ -21,16 +21,16 @@ export const POST = async (url:string, data:any) : Promise<any> => {
 }
 
 export const GET = async (url:string) : Promise<unknown> => {
-    
+    var base_url = "http://127.0.0.1:8000"
     try {
         if(url){
-            const response: AxiosResponse = await axios.get(url,{
+            const response: AxiosResponse = await axios.get(base_url + url,{
                 headers: {
                   'Content-Type': 'application/json'
                 }
               });
 
-            return response?.data;
+            return response;
         }else{
             console.log('Invalid parameter')
             return Promise.reject('Invalid parameter');
