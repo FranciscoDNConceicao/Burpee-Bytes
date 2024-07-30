@@ -3,11 +3,11 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework import status
 
-@api_view(['POST'])
+@api_view(['GET'])
 def getUsersFromToken(request):
-    data = request.data
-    if 'token' in request.data:
-        user = Token.objects.get(key=data['token']).user
+    headers = request.headers
+    if headers.get('Session'):
+        user = Token.objects.get(key=headers.get('Session')).user
         result = {
             "username": user.username,
             "firstName": user.first_name,

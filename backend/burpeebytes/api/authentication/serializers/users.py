@@ -14,9 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
         lastName = validated_data['last_name'] if 'last_name' in validated_data else None
 
 
-        user = User.objects.create(
-            username=username, email=email, first_name=firstName, last_name=lastName
-        )
+        user = User.objects.create(username=username, email=email, first_name=firstName, last_name=lastName)
         user.set_password(validated_data['password'])
         user.save()
         return user
